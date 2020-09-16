@@ -431,3 +431,44 @@ int main() {
 }
 ```
 
+### 6. Tetrahedron
+
+[原题链接](https://codeforces.com/problemset/problem/166/E)
+
+![image-20200916230348762](images/06.png)
+
+#### 解题思路
+
+动态规划，而且ABC之间没有差别。有如下的转移方程
+
+$dp[n][D] = 3 * dp[n - 1][A]$
+
+$dp[n][A] = 2 * dp[n-1][A] + dp[n][D]$
+
+为了进一步优化，将上述转为矩阵运算，然后利用矩阵快速幂。
+
+#### C++代码
+
+```c++
+#include <iostream>
+using namespace std;
+typedef long long LL;
+const int N = 1e7 + 10;
+int dp[2][2];
+const int MOD = 1e9 + 7;
+
+int main() {
+    
+    int n;
+    cin >> n;
+    dp[0][0] = 1;
+    for (int i = 1; i <= n; i ++) {
+        dp[i & 1][0] = ((LL)3 * dp[(i-1)& 1][1]) % MOD;
+        dp[i & 1][1] = ((LL) 2 * dp[(i-1) & 1][1] + dp[(i-1) & 1][0]) % MOD;
+    }
+    cout << dp[n & 1][0];
+    return 0;
+    
+}
+```
+
