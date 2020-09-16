@@ -70,3 +70,71 @@ int main() {
 }
 ```
 
+### 2. Linova and Kingdom
+
+[原题链接](https://codeforces.com/problemset/problem/1336/A)
+
+![image-20200916230805677](images/02.png)
+
+#### 解题思路
+
+每个节点如果称为工业城市，那么他的孩子也都要称为工业城市，可以使用发证法，将孩子弄成工业城市对于快乐值的贡献更大。
+
+每个节点称为工业城市对快乐值带来的增益为(深度 - 孩子个数)。所以可是使用一遍dfs求出每个节点的深度和孩子个数，然后对所有节点的增益求前k个即可。
+
+求前k个不需要排序，只需要使用快速排序的划分函数即可。
+
+#### C++代码
+
+```c++
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <algorithm>
+using namespace std;
+
+const int N = 2e5 + 10;
+int n, k;
+
+vector<int> g[N];
+int suns[N], dep[N], fas[N];
+vector<int> rec;
+
+
+int cur_dep;
+
+int dfs1(int cur, int fa) {
+    
+    cur_dep ++;
+    fas[cur] = fa;
+    for (auto x : g[cur]) {
+        if (x == fa) continue;
+        dep[x] = cur_dep;
+        suns[cur] += dfs1(x, cur);
+    }
+    cur_dep --;
+    rec.push_back(dep[cur] - suns[cur]);
+    return suns[cur] + 1;
+}
+
+
+int main() {
+    
+    cin >> n >> k;
+    while (-- n) {
+        int a, b;
+        cin >> a >> b;
+        g[a].push_back(b);
+        g[b].push_back(a);
+    }
+    
+    dfs1(1, -1);
+    unsigned long long ans = 0;
+    sort(rec.begin(), rec.end());
+    reverse(rec.begin(), rec.end());
+    for (int i = 0; i < k; i ++) ans += rec[i];
+    cout << ans;
+    return 0;
+}
+```
+
