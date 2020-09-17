@@ -138,3 +138,50 @@ int main() {
 }
 ```
 
+### 3. Game On Leaves
+
+[原题链接](https://codeforces.com/problemset/problem/1363/C)
+
+![image-20200917224749780](images/03.png)
+
+#### 解题思路
+
+首先，如果目标节点的度数本来就是1，说明就是叶子，直接先手赢。
+
+如果目标节点的度数不是1，每次操作都会使得图中少一个节点，那么谁都不想让目标节点的度数第一个减为零。
+
+所以都会尽量不去碰目标节点相连的节点。
+
+最后剩下的节点为2的时候，就必胜了。
+
+所以只需要考虑树的节点的个数即可。
+
+#### C++代码
+
+```c++
+#include <iostream>
+using namespace std;
+
+int t, n, x;
+
+
+
+int main() {
+    
+    cin >> t;
+    while (t --) {
+        cin >> n >> x;
+        int d{0};
+        for(int i = 0; i < n - 1; i ++) {
+            int a, b;
+            cin >> a >> b;
+            if (a == x || b == x) d ++;
+        }
+        if (d <= 1) cout << "Ayush" << endl;
+        else if ((n - 2) & 1) cout << "Ashish" << endl;
+        else cout << "Ayush" << endl;
+    } 
+    return 0;
+}
+```
+
