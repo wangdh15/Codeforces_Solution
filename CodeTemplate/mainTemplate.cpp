@@ -35,6 +35,7 @@ typedef pair<int, pair<int, int>> PIII;
 typedef pair<LL, int> PLI;
 typedef pair<ULL, int> PUI;
 typedef vector<int> VI;
+typedef vector<VI> VVI;
 typedef vector<LL> VL;
 typedef vector<PII> VPII;
 typedef pair<LL,LL> PLL;
