@@ -1,5 +1,6 @@
 # Codeforces_Solution
-整理自己刷过的codeforces的题目
+
+整理自己刷过的codeforces的题目，自己非OI/ACM大佬，菜鸡一枚，如有错误感谢指出！
 
 ### 1. 本地刷题配置
 
