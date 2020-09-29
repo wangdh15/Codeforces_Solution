@@ -10,6 +10,12 @@
 [competitive-companion](https://github.com/jmerle/competitive-companion) 浏览器插件，一键拉取题目和测试数据
 
 
+### 2. 个人维护的代码模板
+[代码模板](CodeTemplate)
+
+### 3. 踩坑记录
+
+[血泪史](一些注意事项.md)
 
 ### 2. 一些有用的链接
 

@@ -92,7 +92,7 @@ LL MOD(LL a, LL M) {
 */
 // 最大公约数
 LL gcd(LL a, LL b) {
-    return b ? gcd(a % b, b) : a;
+    return b ? gcd(b, a % b) : a;
 }
 
 // 快速幂
