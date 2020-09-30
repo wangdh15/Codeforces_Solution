@@ -54,8 +54,8 @@ typedef priority_queue<PIII> piiibheap;
 #define sz(x) ((int)x.size())
 #define fr(x) freopen(x,"r",stdin)
 #define fw(x) freopen(x,"w",stdout)
-#define REP(x, l, u) for(LL x = l; x <= u; x++)
-#define RREP(x, u, l) for(LL x = u; x >= l; x--)
+#define REP(x, l, u) for(int x = l; x <= u; x++)
+#define RREP(x, u, l) for(int x = u; x >= l; x--)
 #define sqr(x) (x * x)
 
 
@@ -135,40 +135,29 @@ void UFinit(int f[], int n) {
 //#define  duipai
 //#define kickstart
 #define custom
+#define multiTask
 
 /*
  * 数据初始定义
  */
 
-const int N = 110;
 int t;
-int n, m;
-int q[N][2];
+
 
 // 每个测试数据的方法
 void solve() {
 
-    int n;
-    cin >> n;
-    REP(i, 1, n) cin >> q[i][0] >> q[i][1];
-    int k;
-    cin >> k;
-    int cur = 0;
-    REP(i, 1, n) {
-    
-        if (k >= q[i][0] && k <= q[i][1]) {
-            cout << n - i + 1;
-            return;
-        
-        }
-        
-    }
-    cout << 1;
 }
 
 #ifdef custom
 int main() {
     io();
+
+#ifdef multiTask
+    cin >> t;
+    while (t --)
+#endif
+
     solve();
     return 0;
 }
