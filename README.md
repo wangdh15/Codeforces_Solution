@@ -18,7 +18,7 @@
 
 [血泪史](一些注意事项.md)
 
-### 2. 一些有用的链接
+### 4. 一些有用的链接
 
 [codeforces上分攻略](https://codeforces.com/blog/entry/53341)
 
