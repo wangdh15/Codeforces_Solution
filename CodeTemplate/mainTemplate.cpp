@@ -18,6 +18,7 @@
 #include <stack>
 #include <algorithm>
 #include <cmath>
+#include <cstdio>
 
 // 时间够不要用unordered_map，unordered_set
 // 不然会被CF大佬根据STL源码出的数据给hack掉
