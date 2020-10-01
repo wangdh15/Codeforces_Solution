@@ -12,13 +12,6 @@
 
 ### 2. 题目清单
 
-#### 2.1 CodeForces EDU Practice Solution
-
-- [Binary Search part 1](./EDU/BinarySearch/P1)
-- [Binary Search part 2 ]
-- [Binary Search part3]
-- [Binary Search part4]
-- [Segment Tree part 1]
 
 
 ### 3. 个人维护的代码模板
