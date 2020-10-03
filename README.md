@@ -2,6 +2,8 @@
 
 整理自己刷过的codeforces的题目，自己非OI/ACM大佬，菜鸡一枚，如有错误感谢指出！
 
+[个人CF主页](https://codeforces.com/profile/Loser_Five)
+
 ### 1. 本地刷题配置
 
 [cf-tool](https://github.com/xalanq/cf-tool) 命令行测试，提交cf题目。
@@ -31,5 +33,5 @@
 
 ### 6. upcoming events
 
-1. EDU Binary Search
+1. CF EDU Segment Tree
 2. AC 自动机
