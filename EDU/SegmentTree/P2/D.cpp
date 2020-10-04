@@ -1,7 +1,7 @@
 
-// Problem: C. First element at least X
+// Problem: D. First element at least X - 2
 // Contest: Codeforces - ITMO Academy: pilot course - Segment Tree, part 1 - Step 2
-// URL: https://codeforces.com/edu/course/2/lesson/4/2/practice/contest/273278/problem/C
+// URL: https://codeforces.com/edu/course/2/lesson/4/2/practice/contest/273278/problem/D
 // Memory Limit: 1024 MB
 // Time Limit: 1000 ms
 // Powered by CP Editor (https://github.com/cpeditor/cpeditor)
@@ -153,7 +153,7 @@ void UFinit(int f[], int n) {
 int t;
 int n, m;
 const int N = 1e5 + 10;
-class Node {
+class Node{
 public:
 	int l, r;
 	int ma;
@@ -165,6 +165,8 @@ int q[N];
 void pushup(int u) {
 	tr[u].ma = max(tr[u << 1].ma, tr[u << 1 | 1].ma);
 }
+
+
 
 void build(int u, int l, int r) {
 	tr[u].l = l;
@@ -178,6 +180,7 @@ void build(int u, int l, int r) {
 	}
 }
 
+
 void modify(int u, int x, int v) {
 	if (tr[u].l == tr[u].r) tr[u].ma = v;
 	else {
@@ -188,12 +191,14 @@ void modify(int u, int x, int v) {
 	}
 }
 
-int query(int u, int x) {
-	if (tr[u].ma < x) return 0;
+int query(int u, int l, int v) {
+	if (tr[u].l >= l && tr[u].ma < v) return 0;
 	if (tr[u].l == tr[u].r) return tr[u].l;
 	int mid = tr[u].l + tr[u].r >> 1;
-	if (tr[u << 1].ma >= x) return query(u << 1, x);
-	else return query(u << 1 | 1, x);
+	if (l > mid) return query(u << 1 | 1, l, v);
+	int t = query(u << 1, l, v);
+	if (t) return t;
+	else return query(u << 1 | 1, l, v);
 }
 
 // 每个测试数据的方法
@@ -202,18 +207,12 @@ void solve() {
 	REP(i, 1, n) cin >> q[i];
 	build(1, 1, n);
 	REP(i, 1, m) {
-		int op;
-		cin >> op;
-		if (op == 1) {
-			int a, b;
-			cin >> a >> b;
-			modify(1, a + 1, b);
-		} else {
-			int a;
-			cin >> a;
-			cout << query(1, a) - 1 << endl;
-		}
+		int op, a, b;
+		cin >> op >> a >> b;
+		if (op == 1) modify(1, a + 1, b);
+		else cout << query(1, b + 1, a) - 1 << endl;
 	}
+	
 }
 
 #ifdef custom
