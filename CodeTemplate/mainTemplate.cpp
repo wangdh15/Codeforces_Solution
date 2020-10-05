@@ -1,5 +1,5 @@
-#pragma comment(linker, "/stack:200000000")
-#pragma GCC optimize("Ofast")
+// #pragma comment(linker, "/stack:200000000")
+// #pragma GCC optimize("Ofast")
 //#pragma GCC optimize(3)
 //#pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,tune=native")
 //#pragma GCC target("sse3","sse2","sse")
@@ -136,7 +136,7 @@ void UFinit(int f[], int n) {
 //#define  duipai
 //#define kickstart
 #define custom
-#define multiTask
+// #define multiTask
 
 /*
  * 数据初始定义
@@ -152,10 +152,10 @@ void solve() {
 
 #ifdef custom
 int main() {
-    io();
+    // io();
 
 #ifdef multiTask
-    cin >> t;
+    scanf("%d", &t);
     while (t --)
 #endif
 
