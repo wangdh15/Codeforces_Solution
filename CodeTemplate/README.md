@@ -16,7 +16,7 @@
 
 [线段树](DS/SegmentTree.cpp)
 
-[AC自动机]
+[AC自动机](String/AC自动机.cpp)
 
 [可持久化数据结构]
 
@@ -33,6 +33,8 @@
 [字符串哈希](String/StringHash.cpp)
 
 [Trie](String/Trie.cpp)
+
+[Trie图](String/TrieGraph.cpp)
 
 ### 6. 搜索
 
