@@ -34,4 +34,4 @@
 ### 6. upcoming events
 
 1. CF EDU Segment Tree
-2. AC 自动机
+2. 最短路算法
