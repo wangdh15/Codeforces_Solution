@@ -26,9 +26,25 @@
 
 ### 4. 图论
 
+#### 4.1 最短路算法
+
+[Bellman-ford](GraphTheory/最短路算法/Bellman-ford.cpp)
+
+[SPFA](GraphTheory/最短路算法/SPFA.cpp)
+
+[Dijkstra](GraphTheory/最短路算法/Dijkstra.cpp)
+
+[Floyd](GraphTheory/最短路算法/Floyd.cpp)
+
+#### 4.2 最小生成树算法
+
+
+
 ### 5. 字符串
 
 [KMP](String/KMP.cpp)
+
+[Z函数(扩展KMP)](String/ZFunction.cpp)
 
 [字符串哈希](String/StringHash.cpp)
 
