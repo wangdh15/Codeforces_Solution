@@ -3,9 +3,21 @@
 // Created by wangdh on 2020/10/18.
 //
 
+/**
+ * Manacher算法，能够在线性时间复杂度内求出一个字符串的所有回文子串。
+ * 通过记录两个数组，表示已i为中心的长度为奇数的回文串半径和长度为偶数的回文串半径。
+ * 通过将原始字符添加分隔符，从而得到使用一个算法同时求出两个数组。
+ *
+ * 习题：1. https://leetcode-cn.com/problems/palindromic-substrings
+ *       2. https://leetcode-cn.com/problems/longest-palindromic-substring/
+ *
+ */
+
 #include <iostream>
 #include <vector>
 using namespace std;
+
+
 
 namespace Manacher {
     // 得到以s[i]为中心的且长度为奇数的最长回文串半径
