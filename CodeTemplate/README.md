@@ -66,6 +66,10 @@
 
 [Trie图](String/TrieGraph.cpp)
 
+[Manacher](String/Manacher.cpp)
+
+[最小表示法]
+
 ### 6. 搜索
 
 ### 7.  动态规划
