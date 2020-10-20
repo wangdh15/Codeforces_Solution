@@ -34,4 +34,4 @@
 ### 6. upcoming events
 
 1. CF EDU UF
-2. 拓扑排序、二分图
+2. 欧拉路径、平衡树
