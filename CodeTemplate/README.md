@@ -40,9 +40,9 @@
 
 #### 4.2 最小生成树算法
 
-[Prim](GraphTheory/最小生成树/Prim.cpp)
+[Prim](GraphTheory/最小生成树算法/Prim.cpp)
 
-[Kruskal](GraphTheory/最小生成树/Kruskal.cpp)
+[Kruskal](GraphTheory/最小生成树算法/Kruskal.cpp)
 
 #### 4.3 二分图匹配
 
