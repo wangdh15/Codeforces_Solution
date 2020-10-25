@@ -26,7 +26,7 @@
 
 #### 平衡树
 
-[Treap]
+[Treap](DS/Treap.cpp)
 
 [Splay]
 
