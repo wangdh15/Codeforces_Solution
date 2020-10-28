@@ -28,6 +28,8 @@
 
 [Treap](DS/Treap.cpp)
 
+[KD Tree](DS/KDTree_2.cpp)
+
 [Splay]
 
 [AVL]
