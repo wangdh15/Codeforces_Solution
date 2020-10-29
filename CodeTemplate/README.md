@@ -30,7 +30,7 @@
 
 [KD Tree](DS/KDTree_2.cpp)
 
-[Splay](DS/Splay.cpp)
+[Splay](DS/Splay_2.cpp)
 
 [AVL]
 
