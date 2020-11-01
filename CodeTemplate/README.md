@@ -32,6 +32,8 @@
 
 [Splay](DS/Splay_2.cpp)
 
+[Splay维护区间信息](DS/Splay_3.cpp)
+
 [AVL]
 
 [红黑树]
