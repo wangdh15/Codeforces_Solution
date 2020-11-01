@@ -6,8 +6,8 @@
 
 [KD Tree](KDTree.md)
 
+[Splay](Splay.md)
+
 [主席树]
 
 [线段树]
-
-[Splay]
