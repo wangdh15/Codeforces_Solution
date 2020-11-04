@@ -64,7 +64,8 @@
 
 #### Dancing Links
 
-[精确覆盖问题](DS/DLX_2.cpp)
+[精确覆盖问题模板](DS/DLX_2.cpp)
+[精确覆盖问题解数独](DS/DLX_3.cpp)
 
 [完全覆盖问题]()
 
