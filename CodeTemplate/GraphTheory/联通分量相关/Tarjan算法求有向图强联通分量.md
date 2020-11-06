@@ -23,7 +23,7 @@
 3. 后向边
 4. 横边
 
-![image-20201106145229437](/Users/wangdh/Desktop/Codeforces_Solution/CodeTemplate/GraphTheory/联通分量相关/imge/2.png)
+![image-20201106145229437](imge/2.png)
 
 可以观察到在一个联通分量内部遍历，有如下事实：
 
