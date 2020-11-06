@@ -107,7 +107,13 @@
 
 [最大流Dinic模板](GraphTheory/网络流/dinic.cpp)
 
-#### 4.5 其他
+#### 4.5 联通分量
+
+[有向图强联通分量](GraphTheory/联通分量相关/有向图强联通分量.cpp)
+
+[无向图双联通分量](GraphTheory/联通分量相关/无向图双联通分量.cpp)
+
+#### 4.x 其他
 
 [拓扑序](GraphTheory/拓扑序/TopSort.cpp)
 
