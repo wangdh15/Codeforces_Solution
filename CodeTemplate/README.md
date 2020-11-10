@@ -111,6 +111,8 @@
 
 [有向图强联通分量](GraphTheory/联通分量相关/有向图强联通分量.cpp)
 
+[有向图缩点+DP](GraphTheory/联通分量相关/有向图缩点DP.cpp)
+
 [无向图双联通分量之桥](GraphTheory/联通分量相关/无向图边双联通分量.cpp)
 
 [无向图双联通分量之割点](GraphTheory/联通分量相关/无向图点双联通分量.cpp)
