@@ -42,7 +42,7 @@ void tarjan(int cur) {
             tarjan(node);
             low[cur] = min(low[cur], low[node]);
         } else if (instk[node]) {  // 遍历过，且还在栈中
-            low[cur] = min(low[cur], low[node]);
+            low[cur] = min(low[cur], dfn[node]);
         }
     }
     
