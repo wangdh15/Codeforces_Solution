@@ -22,8 +22,10 @@ public:
     rk(vector<int>(str_length + 1)),
     cur_keys(vector<int>(str_length + 1)),
     sort_result_by_second_key(vector<int>(str_length + 1)),
-    cnt(vector<int>(max(256u, str_length + 1))) {
+    cnt(vector<int>(max(256u, str_length + 1))),
+    height(vector<int>(str_length + 1)) {
         _get_sa(str);
+        _get_height(str);
     }
 
     ~SuffixArray() = default;
@@ -32,6 +34,8 @@ public:
 
     vector<int> get_rk() const {return rk;}
 
+    vector<int> get_height() const {return height;}
+
 
 private:
     uint32_t str_length;
@@ -39,6 +43,7 @@ private:
     vector<int> cur_keys; // 存储第i个后缀当前离散化的key
     vector<int> sort_result_by_second_key; // 存储按照第二个key排序的结果，第i个元素表示排在第i位的后缀的标号
     vector<int> cnt; // 计数数组，用于基数排序
+    vector<int> height; // 求排序相邻的两个字符串的最长公共前缀
 
     void _get_sa(const string &s) {
 
@@ -99,6 +104,20 @@ private:
         for (int i = 1; i <= str_length; i ++) rk[sa[i]] = i;
     }
 
+    // 求height数组
+    void _get_height(const string &str) {
+
+        
+        int k = 0;
+        for (int i = 1; i <= str_length; i ++) {
+            if (k) k --; // 利用性质，直接初始化k
+            if (rk[i] == 1) continue;
+            int j = sa[rk[i] - 1];  // 找到其前面的后缀开始的位置
+            while (i + k <= str_length && j + k <= str_length && str[i + k - 1] == str[j + k - 1]) k ++;  // 一个一个尝试匹配
+            height[rk[i]] = k;
+        }
+    }
+
 };
 
 int main() {
@@ -111,7 +130,9 @@ int main() {
     cin >> s;
     SuffixArray suffixArray(s);
     vector<int> res=  suffixArray.get_sa();
-    // cout << s.size() << ' ';
+    vector<int> res2 = suffixArray.get_height();
     for (int i = 1; i <= s.size(); i ++) cout << res[i] << ' ';
+    cout << '\n';
+    for (int i = 1; i <= s.size(); i ++) cout << res2[i] << ' ';
     return 0;
 }
