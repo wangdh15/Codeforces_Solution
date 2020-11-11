@@ -139,6 +139,8 @@
 
 [Manacher](String/Manacher.cpp)
 
+[后缀数组](String/SuffixArray.cpp)
+
 [最小表示法]
 
 ### 6. 搜索
