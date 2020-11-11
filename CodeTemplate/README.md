@@ -119,6 +119,8 @@
 
 #### 4.x 其他
 
+[2SAT模板](GraphTheory/2SAT/2SAT.cpp)
+
 [拓扑序](GraphTheory/拓扑序/TopSort.cpp)
 
 [欧拉路径]
