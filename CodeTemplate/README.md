@@ -123,6 +123,8 @@
 
 [拓扑序](GraphTheory/拓扑序/TopSort.cpp)
 
+[点分治](GraphTheory/树上分治/点分治.cpp)
+
 [欧拉路径]
 
 ### 5. 字符串
