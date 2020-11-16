@@ -11,17 +11,19 @@
  */
 
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 const int N = 1e6 + 5;
 
 int sa[N], rk[N], x[N], y[N], cnt[N];
 int height[N];
+int st[N][30];
 
 int n, m;
 string s;
 
-
+// 求SA数组
 void get_sa() {
     
     m = 'z';
@@ -55,6 +57,7 @@ void get_sa() {
     for (int i = 1; i <= n; i ++) rk[sa[i]] = i;
 }
 
+// 求height数组
 void get_height() {
     
     int k = 0;
@@ -65,6 +68,25 @@ void get_height() {
         while (i + k <= n && j + k <= n && s[i + k] == s[j + k]) k ++;
         height[rk[i]] = k;
     }
+}
+
+// 构建ST表，求区间最小值
+void build_st() {
+    for (int i = 1; i <= n; i ++) st[i][0] = height[i];
+    for (int i = 1; (1 << i) <= n; i ++) {
+        for (int j = 1; j + (1 << i) - 1 <= n; j ++) {
+            st[j][i] = min(st[j][i - 1], st[j + (1 << (i - 1))][i - 1]);
+        }
+    }
+}
+
+// 查询l后缀和r后缀的最长公共前缀的长度
+void lca(int l, int r) {
+    l = rk[l], r = rk[r];
+    if (l > r) swap(l, r);
+    l ++;
+    int t = log(r - l + 1) / log(2);
+    return min(st[l][t], st[r - (1 << t) + 1][t]);
 }
 
 int main() {
