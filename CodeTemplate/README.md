@@ -143,6 +143,8 @@
 
 [后缀数组](String/SuffixArray.cpp)
 
+[后缀自动机](String/SAM.cpp)
+
 [最小表示法]
 
 ### 6. 搜索
