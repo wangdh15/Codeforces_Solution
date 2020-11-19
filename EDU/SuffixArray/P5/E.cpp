@@ -1,109 +1,126 @@
 #include <iostream>
-#include <cstring>
-#include <vector>
+#include <cstdio>
+
+
 using namespace std;
+const int maxn = 1e6 + 10;
+typedef long long ll;
 
-typedef long long LL;
+struct SA
+{
+    char s[maxn];
+    int sa[maxn], t[maxn], t2[maxn], c[maxn], n;
 
-const int N = 4e5 + 5;
-int sa[N], rk[N], x[N], y[N], cnt[N];
-int height[N];
-int st[N][20];
-vector<int> hs[N];
-int fa[N], sz[N];
+    void build_sa(int n, int m)
+    {
+        int *x = t, *y = t2;
+        for(int i = 0; i < m; i++) c[i] = 0;
+        for(int i = 0; i < n; i++) c[x[i] = s[i]]++;
+        for(int i = 1; i < m; i++) c[i] += c[i - 1];
+        for(int i = n - 1; i >= 0; i--) sa[--c[x[i]]] = i;
+        for(int k = 1; k <= n; k <<= 1)
+        {
+            int p = 0;
+            for(int i = n - k; i < n; i++) y[p++] = i;
+            for(int i = 0; i < n; i++) if(sa[i] >= k) y[p++] = sa[i] - k;
+            for(int i = 0; i < m; i++) c[i] = 0;
+            for(int i = 0; i < n; i++) c[x[y[i]]]++;
+            for(int i = 0; i < m; i++) c[i] += c[i - 1];
+            for(int i = n - 1; i >= 0; i--) sa[--c[x[y[i]]]] = y[i];
+            swap(x, y);
+            p = 1; x[sa[0]] = 0;
+            for(int i = 1; i < n; i++)
+                x[sa[i]] = y[sa[i - 1]] == y[sa[i]] && y[sa[i - 1] + k] == y[sa[i] + k] ? p - 1 : p++;
+            if(p >= n) break;
+            m = p;
+        }
+    }
 
-int n, m;
-string s;
+    int rk[maxn], height[maxn];
 
-LL ans = 1;
-int len = 1, beg = 1;
+    void getHeight()
+    {
+        for(int i = 1; i <= n; i++) rk[sa[i]] = i;
+        for(int i = 0, k = 0; i < n; i++)
+        {
+            if(k) k--;
+            int j = sa[rk[i] - 1];
+            while(s[i + k] == s[j + k]) k++;
+            height[rk[i]] = k;
+        }
+        for(int i = n; i > 0; i --) rk[i] = rk[i - 1];
+    }
 
-void get_sa() {
-    m = 'z';
+    int dp[maxn][21];
 
-    for (int i = 1; i <= n; i ++) cnt[x[i] = s[i]] ++;
-    for (int i = 2; i <= m; i++) cnt[i] += cnt[i - 1];
-    for (int i = n; i; i --) sa[cnt[x[i]] --] = i;
+    void RMQ()
+    {
+        for(int i = 1; i <= n; i ++) dp[i][0] = height[i];
+        for(int j = 1; (1 << j) < maxn; j ++)
+            for(int i = 1; i + (1 << j) - 1 <= n; i ++)
+                dp[i][j] = min(dp[i][j - 1], dp[i + (1 << (j - 1))][j - 1]);
+    }
 
-    for (int k = 1; k < n; k <<= 1) {
-        int num = 0;
-        for (int i = n - k + 1; i <= n; i ++) y[++ num] = i;
-        for (int i = 1; i <= n; i ++) {
-            if (sa[i] > k) {
-                y[++ num] = sa[i] - k;
+    int query(int l, int r)
+    {
+        int k = 0;
+        while((1 << (k + 1)) <= r - l + 1) k ++;
+        return min(dp[l][k], dp[r - (1 << k) + 1][k]);
+    }
+
+    int lcp(int x, int y)
+    {
+        x = rk[x], y = rk[y];
+        if(x > y) swap(x, y);
+        return query(x + 1, y);
+    }
+}A, B;
+
+int n, k;
+int ans1 = 1, ans2 = 1;
+
+void work(int l, int r, int p)
+{
+    int exR = A.lcp(l, r + 1), exL = B.lcp(n + 1 - r, n + 1 - l + 1);
+    l -= exL, r += exR;
+	if ((double)(r - l + 1) / p > (double)ans1 / ans2) {
+		ans1 = r - l + 1;
+		ans2 = p;
+	}
+}
+
+int gcd(int a, int b) {
+	return b ? gcd(b, a % b) : a;
+}
+
+int main()
+{
+    int _;
+    scanf("%d", &_);
+    while(_ --)
+    {
+        scanf("%s", A.s);
+        n = strlen(A.s);
+        reverse_copy(A.s, A.s + n, B.s); A.n = B.n = n;
+        A.build_sa(n + 1, 130), B.build_sa(n + 1, 130);
+        A.getHeight(), B.getHeight();
+        A.RMQ(), B.RMQ();
+        
+        for(int i = 1; i <= n; i ++)
+        {
+            int last = 1;
+            for(int j = i + 1; j <= n; j += i)
+            {
+                if(A.lcp(last, j) >= i) continue;
+                work(last, j - 1, i);
+                if(j + i - 1 <= n) last = j;
+                else last = 0;
             }
+            if(last) work(last, n, i);
         }
-        for (int i = 1; i <= m; i ++) cnt[i] = 0;
-        for (int i = 1; i <= n; i ++) cnt[x[i]] ++;
-        for (int i = 2; i <= m; i ++) cnt[i] += cnt[i-1];
-        for (int i = n; i; i --) sa[cnt[x[y[i]]] --] = y[i], y[i] = 0;
-        swap(x, y);
-        x[sa[1]] = 1, num = 1;
-        for (int i = 2; i <= n; i ++) {
-            x[sa[i]] = (y[sa[i]] == y[sa[i - 1]] && y[sa[i] + k] == y[sa[i - 1] + k]) ? num : ++ num;
-        }
-        if (num == n) break;
-        m = num;
+        int _gcd = gcd(ans1, ans2);
+        
+        printf("%ld/%d\n", ans1 / _gcd, ans2 / _gcd);
     }
-
-}
-
-void get_height() {
-
-    for (int i = 1; i <= n; i ++) rk[sa[i]] = i;
-    for (int i = 1, k = 0; i <= n; i ++) {
-        if (rk[i] == 1) continue;
-        if (k) k --;
-        int j = sa[rk[i] - 1];
-        while (i + k <= n && j + k <= n && s[i + k] == s[j + k]) k ++;
-        height[rk[i]] = k;
-    }
-}
-
-
-int find(int a) {
-    return a == fa[a] ? a : fa[a] = find(fa[a]);
-}
-
-void calc(int r) {
-    for (auto x : hs[r]) {
-        int a = find(x - 1), b = find(x);
-        if ((LL) r * (sz[a] + sz[b]) > ans) {
-        	ans = (LL) r * (sz[a] + sz[b]);
-        	len = r;
-        	beg = sa[b];
-        }
-        fa[a] = b;
-        sz[b] += sz[a];
-    }
-}
-
-int main() {
-
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
-	cin >> n >> m;
-	s = " ";
-    for (int i = 1; i <= n; i ++) {
-    	int x;
-    	cin >> x;
-    	char a = 'a' + x;
-    	s += a;
-    }
-    m = 'z';
-    get_sa();
-    get_height();
-    for (int i = 1; i <= n; i ++) fa[i] = i, sz[i] = 1;
-    for (int i = 2; i <= n; i ++) hs[height[i]].push_back(i);
-    for (int i = n - 1; i >= 1; i --) calc(i);
-    if (ans < n) {
-    	ans = n;
-    	beg = 1;
-    	len = n;
-    }
-    cout << ans << '\n';
-    cout << len << '\n';
-	for (int i = 0; i < len; i ++) cout << s[beg + i] - 'a' << ' ';
     return 0;
 }
