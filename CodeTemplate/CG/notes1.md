@@ -244,5 +244,5 @@ $$a ^ 2 = b ^ 2 + c^2 - 2bc\cos A$$
 
 ### 代码模板
 
-[模板链接]()
+[模板链接](BasicTemplate.cpp)
 
