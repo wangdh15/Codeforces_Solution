@@ -276,9 +276,9 @@ void andrew() {
     double area;
     for (int i = 0; i < n; i ++) {
         while (top >= 2 && (area = (p[stk[top - 1]] - p[stk[top]]) ^ (p[stk[top]] - p[i])) <= 0) {  // 按照题目要求，在边界上的点是否保留，如果保留，则改成 < 
-            if (area < 0) {
+            if (area < 0) { // 在边界上的点used还要是true，不然有相同点的时候会出问题
                 used[stk[top]] = false;
-            }
+            } 
             top --;
         }
         stk[++ top] = i;
@@ -290,7 +290,7 @@ void andrew() {
     for (int i = n - 1; i >= 0; i --) {
         if (used[i]) continue;
         while (top >= 2 && (area = (p[stk[top - 1]] - p[stk[top]]) ^ (p[stk[top]] - p[i])) <= 0) { // 按照题目要求，在边界上的点是否保留，如果保留，则改成 <
-            if (area < 0) {
+            if (area < 0) { // 在边界上的点used也要置为true，不然出现相同的点会有问题
                 used[stk[top]] = false;
             }
             top --;
