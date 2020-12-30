@@ -1,3 +1,8 @@
+/**
+
+https://www.acwing.com/problem/content/1403/
+*/
+
 #include <iostream>
 #include <cmath>
 #include <algorithm>
