@@ -217,6 +217,8 @@
 
 [Andrew求凸包](CG/andrew.cpp)
 
+[自适应辛普森积分](CG/simpson.cpp)
+
 ### 9. 头文件
 
 [偷懒头文件](./mainTemplate.cpp)
