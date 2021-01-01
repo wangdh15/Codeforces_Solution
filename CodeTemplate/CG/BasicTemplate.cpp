@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <algorithm>
 
 using namespace std;
 
@@ -104,6 +105,15 @@ public:
     }
 
     /**
+     * 重载比较操作符
+     * @param rhs
+     * @return
+     */
+    bool operator<(const Point &rhs) const {
+        return cmp(x, rhs.x) < 0 || cmp(x, rhs.x) == 0 && cmp(y, rhs.y) < 0;
+    }
+
+    /**
      * 求向量模长
      * @return
      */
@@ -123,6 +133,12 @@ public:
         return os;
     }
 
+    /**
+     * 返回两条直线的夹角
+     * @param a
+     * @param b
+     * @return
+     */
     friend double getAngle(const Point &a, const Point &b) {
         return acos(a * b / a.getLength() / b.getLength());
     }
@@ -145,70 +161,95 @@ public:
         return Point(- y / len, x / len);
     }
 
+    /**
+     * 求直线的角度，范围是-pi ~ pi
+     * @return
+     */
+    double angle() const {
+        return atan2(y, x);
+    }
+
 };
 
 typedef Point Vector;
 
 /**
- * 得到两个直线的交点坐标
- * @param p 第一个直线上的点
- * @param v 第一个直线的方向向量
- * @param q 第二个直线上的点
- * @param w 第二个直线的方向向量
- * @return 交点
+ * 直线类
  */
-Point get_line_intersection(const Point &p, const Vector &v, const Point &q, const Vector &w) {
-    Vector u = p - q;
-    double t = (w ^ u) / (v ^ w);
-    return p + v * t;
+class Line {
+public:
+    Point p;  // 直线上的一个点
+    Vector v; // 指向的方向向量
+    Line() = default;
+    Line(const Point &_p, const Vector _v) : p(_p), v(_v) {}
+};
+
+/**
+ * 得到两个直线的交点
+ * @param l1
+ * @param l2
+ * @return
+ */
+Point get_line_intersection(const Line &l1, const Line &l2) {
+    Vector u = l1.p - l2.p;
+    double t = (l2.v ^ u) / (l1.v ^ l2.v);
+    return l1.p + l1.v * t;
 }
 
 /**
  * 点到直线的距离
- * @param A 直线外一点
- * @param P 直线上一点
- * @param v 直线的方向向量
+ * @param l 直线
+ * @param p 点
  * @return
  */
-double point_line_distance(const Point &A, const Point &P, const Vector &v) {
-    return fabs((A - P) ^ v) / v.getLength();
+double point_line_distance(const Line &l, const Point &p) {
+    return fabs((p - l.p) ^ l.v) / l.v.getLength();
 }
+
+/**
+ * 线段类
+ */
+class Segment{
+public:
+    Point st, en;  // 线段的两个端点
+    Segment() = default;
+    Segment(const Point &_st, const Point &_en) : st(_st), en(_en) {}
+};
 
 /**
  * 点到线段的距离
- * @param P 线段外的点
- * @param A 线段的两个端点
- * @param B 线段的两个端点
+ * @param seg 线段
+ * @param p 点
  * @return
  */
-double point_segment_distance(const Point &P, const Point &A, const Point &B) {
-    if (A == B) return (P - A).getLength();
-    Vector ab = B - A, ap = P - A, bp = P - B;
+double point_segment_distance(const Segment &seg, const Point &p) {
+    if (seg.en == seg.en) return (seg.st - p).getLength();
+    Vector ab = seg.en - seg.st, ap = p - seg.st, bp = p - seg.en;
     if (sign(ab * ap) < 0) return ap.getLength();
     if (sign(ab * bp) > 0) return bp.getLength();
-    return point_line_distance(P, A, A - B);
+    Line t = Line(seg.st, seg.en - seg.st);
+    return point_line_distance(t, p);
+}
+
+
+/**
+ * 得到点p在直线l上的投影
+ * @param l 直线
+ * @param p 点
+ * @return
+ */
+Point get_line_projection(const Line &l, const Point &p) {
+    return l.p + l.v * (((p - l.p) * l.v) / (l.v * l.v));
 }
 
 /**
- * 得到点P在直线上的投影的点
- * @param P 要投影的点
- * @param A 被投影的直线
- * @param v
+ * 判断点p是否在线段seg上
+ * @param seg
+ * @param p
  * @return
  */
-Point get_line_projection(const Point &P, const Point &A, const Vector &v) {
-    return A + v * (((P - A) * v) / (v * v));
-}
-
-/**
- * 判断点P是否在线段AB上，也可以用点到线段的距离来判断
- * @param P
- * @param A
- * @param B
- * @return
- */
-bool point_on_segment(const Point &P, const Point &A, const Point &B) {
-    Vector ap = P - A, bp = P - B;
+bool point_on_segment(const Segment &seg, const Point &p) {
+    Vector ap = p - seg.st, bp = p - seg.en;
     return sign(ap ^ bp) == 0 && sign(ap * bp) <= 0;
 }
 
@@ -226,6 +267,11 @@ bool segment_insection(const Point &A1, const Point &A2, const Point &B1, const 
     return sign(a1a2 ^ a1b1) * sign(a1a2 ^ a1b2) <= 0 && sign(b1b2 ^ b1a1) * sign(b1b2 ^ b1a2) <= 0;
 }
 
+bool segment_insection(const Segment &seg1, const Segment &seg2) {
+    Vector a1a2 = seg1.en - seg1.st, a1b1 = seg2.st - seg1.st, a1b2 = seg2.en - seg1.st;
+    Vector b1b2 = seg2.en - seg1.st, b1a1 = seg1.st - seg2.st, b1a2 = seg1.en - seg2.st;
+    return sign(a1a2 ^ a1b1) * sign(a1a2 ^ a1b2) <= 0 && sign(b1b2 ^ b1a1) * sign(b1b2 ^ b1a2) <= 0;
+}
 
 /**
  * 求多边形的面积，p是按照多边形逆时针存的点
@@ -239,4 +285,14 @@ double polygon_area(const Point p[], int n) {
         s += (p[i] - p[0]) ^ (p[i + 1] - p[i]);
     }
     return s / 2;
+}
+
+/**
+ * 判断点p是否在直线l的左侧
+ * @param l
+ * @param p
+ * @return
+ */
+int to_left_test(const Line &l, const Point& p) {
+    return sign(l.v ^ (p - l.p));
 }
