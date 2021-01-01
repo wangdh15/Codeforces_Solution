@@ -217,6 +217,8 @@
 
 [Andrew求凸包](CG/andrew.cpp)
 
+[半平面交](CG/half_plane_intersection.cpp)
+
 [自适应辛普森积分](CG/simpson.cpp)
 
 ### 9. 头文件
