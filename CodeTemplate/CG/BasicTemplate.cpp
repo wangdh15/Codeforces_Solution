@@ -301,3 +301,15 @@ double polygon_area(const Point p[], int n) {
 int to_left_test(const Line &l, const Point& p) {
     return sign(l.v ^ (p - l.p));
 }
+
+/**
+ *
+ * 求a, b, c三点构成的三角形的有向面积
+ * @param a
+ * @param b
+ * @param c
+ *
+ */
+double get_area(const Point &a, const Point &b, const Point &c) {
+    return (b - a) ^ (c - a);
+}
